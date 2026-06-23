@@ -8,23 +8,23 @@ metadata:
     tier: db
     component: mongodb
 spec:
-  cluserIP: None
+  clusterIP: None
   selector:
-    #lables are used as selectors
-     project: roboshop
-     tier: db
-     component: mongodb
+    # labels are used as selectors
+    project: roboshop
+    tier: db
+    component: mongodb
   ports:
-    - protocol: TCP
-      port: 27017 #service port
-      targetPort: 27017 # cantainer port
+  - protocol: TCP
+    port: 27017 # servie port
+    targetPort: 27017 # container port
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongodb
   namespace: roboshop
-  labels:
+  labels: 
     project: roboshop
     tier: db
     component: mongodb
@@ -34,9 +34,10 @@ spec:
       project: roboshop
       tier: db
       component: mongodb
-  serviceName: "mongodb-headless" # weshould attach headless service 
-  replicas: 3 # by default is 1
-  #Pod defination 
+  serviceName: "mongodb-headless" # we should attach headless service
+  #replicas: 3
+  replicas: 1 # by default is 1
+  # Pod definition
   template:
     metadata:
       labels:
@@ -46,11 +47,11 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: joindevops/mongodb:1.4.0
+        image: joindevops/mongodb:1.0.0
         volumeMounts:
         - name: mongodb
           mountPath: /data/db
-  #pvc
+  # PVC
   volumeClaimTemplates:
   - metadata:
       name: mongodb
@@ -72,11 +73,11 @@ metadata:
     component: mongodb
 spec:
   selector:
-    #lables are used as selectors
-     project: roboshop
-     tier: db
-     component: mongodb
+    # labels are used as selectors
+    project: roboshop
+    tier: db
+    component: mongodb
   ports:
-    - protocol: TCP
-      port: 27017 #service port
-      targetPort: 27017 # cantainer port
+  - protocol: TCP
+    port: 27017 # servie port
+    targetPort: 27017 # container port
